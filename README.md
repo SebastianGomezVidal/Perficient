@@ -28,7 +28,7 @@ Upload the solution to a repo, put in the README instructions about how to execu
 3. Go into your newly created job and add the follwoing lines under build:
 
     ```
-        cd "Path to where your downloaded challenge 1 folder is located at"
+        cd "Path to where your downloaded challenge 1 folder "
         "C:\Users\youruser\AppData\Roaming\npm\newman" run Swagger_Petstore.postman_collection.json -e QA_Testing  postman_environment.json -g workspace.postman_globals.json
         "C:\Users\youruser\AppData\Roaming\npm\newman" run Swagger_Petstore.postman_collection.json -e QA_Testing.postman_environment.json -g workspace.postman_globals.json -r htmlextra
     ```
