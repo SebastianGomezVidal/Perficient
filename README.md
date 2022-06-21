@@ -16,7 +16,7 @@ Upload the solution to a repo, put in the README instructions about how to execu
 
 ## THINGS YOU MIGHT NEED BEFORE STARTING
 - node js
-    (https://www.youtube.com/watch?v=AuCuHvgOeBY)
+    [![Alt text](https://img.youtube.com/vi/AuCuHvgOeB/0.jpg)](https://www.youtube.com/watch?v=AuCuHvgOeB)
 - postman
 
 - newman
