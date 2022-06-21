@@ -15,7 +15,7 @@ Hint: You will probably need to use environments to store some data that needs t
 Upload the solution to a repo, put in the README instructions about how to execute your code, share the solution as a response to this message :)
 
 ## OS
-This program was developed fully on Windows 11.
+This program was fully developed on Windows 11.
 
 ## THINGS YOU MIGHT NEED BEFORE STARTING
 - node js.
