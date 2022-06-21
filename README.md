@@ -25,7 +25,7 @@ Upload the solution to a repo, put in the README instructions about how to execu
 2. Open Jenkins and Configure a new Job.
 
 ![Alt text](pictures//new_job.png?raw=true "New Job")
-3. Go into your newly created job and add the follwoing lines under build:
+3. Go into your newly created job and add the following lines under build:
 
     ```
         cd "Path to where your downloaded challenge 1 folder "
