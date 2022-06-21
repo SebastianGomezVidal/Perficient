@@ -4,30 +4,39 @@ Using the following API Definition:
 https://petstore.swagger.io/#/
 
 Create a collection with two requests:
-1. Create a Pet, create tests to verify it was created successfully
-2. Get a Pet, create tests to verify you're getting the expected pet
-3. Place an order for the created Pet
+1. Create a Pet, create tests to verify it was created successfully.
+2. Get a Pet, create tests to verify you're getting the expected pet.
+3. Place an order for the created Pet.
 4. Get the order created in step 3, and verify it has the expected data.
-5. Automate it using newman
+5. Automate it using newman.
 
 Hint: You will probably need to use environments to store some data that needs to be shared between requests.
 
 Upload the solution to a repo, put in the README instructions about how to execute your code, share the solution as a response to this message :)
 
+## OS
+This program was developed fully on Windows 11.
+
 ## THINGS YOU MIGHT NEED BEFORE STARTING
-- node js
+- node js.
 
     [![Alt text](https://img.youtube.com/vi/AuCuHvgOeBY/0.jpg)](https://www.youtube.com/watch?v=AuCuHvgOeBY)
     
-- postman
+- postman.
 
-- newman
+    [![Alt text](https://img.youtube.com/vi/3eHJkcA8mTs/0.jpg)](https://www.youtube.com/watch?v=3eHJkcA8mTs)
 
-- newman reporter
-'''
-npm install -g newman-reporter-htmlextra
-'''
-- jenkins
+- newman.
+
+    [![Alt text](https://img.youtube.com/vi/xZJu9-c4jFM/0.jpg)](https://www.youtube.com/watch?v=xZJu9-c4jFM)
+
+- newman html reporter.
+
+     [![Alt text](https://img.youtube.com/vi/emAlyIA0uEc/0.jpg)](https://www.youtube.com/watch?v=emAlyIA0uEc)
+
+- jenkins.
+
+    [![Alt text](https://img.youtube.com/vi/XuMrEDA8cAI/0.jpg)](https://www.youtube.com/watch?v=XuMrEDA8cAI)
 
 ## HOW TO RUN THIS POGRAM
 1. Download The Challenge 1 Folder into a location inside your computer.
