@@ -1,0 +1,603 @@
+{
+	"info": {
+		"_postman_id": "08df0914-8c83-4338-8790-6101f89de065",
+		"name": "Swagger_Petstore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17666396"
+	},
+	"item": [
+		{
+			"name": "Add_Pet",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Generating random numbers\r",
+							"let min = 0;\r",
+							"let max = 10000000;\r",
+							"\r",
+							"function randomNumber() { \r",
+							"    return Math.round(Math.random() * (max - min) + min);\r",
+							"} \r",
+							"\r",
+							"//Setting up environmnet variables\r",
+							"pm.environment.set(\"post_id\", randomNumber());\r",
+							"console.log(\"Post id = \" + pm.environment.get(\"post_id\"));\r",
+							"pm.environment.set(\"category_id\", randomNumber());\r",
+							"console.log(\"Category id : \" + pm.environment.get(\"category_id\"));\r",
+							"pm.environment.set(\"tag_id\", randomNumber());\r",
+							"console.log(\"Tag id = \" + pm.environment.get(\"tag_id\"));\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Server Response\r",
+							"var jsonResponse = pm.response.json();\r",
+							"\r",
+							"//Setting collection variables\r",
+							"pm.collectionVariables.set(\"c_post_id\", jsonResponse.id);\r",
+							"pm.collectionVariables.set(\"c_category_id\", jsonResponse.category.id);\r",
+							"pm.collectionVariables.set(\"category_name\", jsonResponse.category.name);\r",
+							"pm.collectionVariables.set(\"pet_name\", jsonResponse.name);\r",
+							"pm.collectionVariables.set(\"c_tag_id\", jsonResponse.tags[0].id);\r",
+							"pm.collectionVariables.set(\"tag_name\", jsonResponse.tags[0].name);\r",
+							"pm.collectionVariables.set(\"status\", jsonResponse.status);\r",
+							"\r",
+							"//Json Schema\r",
+							"const schema = {\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"id\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"category\": {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"id\": {\r",
+							"          \"type\": \"integer\"\r",
+							"        },\r",
+							"        \"name\": {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"id\",\r",
+							"        \"name\"\r",
+							"      ]\r",
+							"    },\r",
+							"    \"name\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"photoUrls\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      ]\r",
+							"    },\r",
+							"    \"tags\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"object\",\r",
+							"          \"properties\": {\r",
+							"            \"id\": {\r",
+							"              \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"name\": {\r",
+							"              \"type\": \"string\"\r",
+							"            }\r",
+							"          },\r",
+							"          \"required\": [\r",
+							"            \"id\",\r",
+							"            \"name\"\r",
+							"          ]\r",
+							"        }\r",
+							"      ]\r",
+							"    },\r",
+							"    \"status\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"id\",\r",
+							"    \"category\",\r",
+							"    \"name\",\r",
+							"    \"photoUrls\",\r",
+							"    \"tags\",\r",
+							"    \"status\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"//Tests \r",
+							"pm.test(\"Validating Status Code equals 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validating Response Time is under 800 ms\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validating Header Response\", () => {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validating Json Schema\", () =>{\r",
+							"        pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"\r",
+							" pm.test(\"Validating Json Keys\", () =>{\r",
+							"        pm.expect(jsonResponse).have.property(\"id\");\r",
+							"        pm.expect(jsonResponse).have.property(\"category\");\r",
+							"        pm.expect(jsonResponse).have.property(\"status\");\r",
+							"    })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{post_id}},\r\n  \"category\": {\r\n    \"id\": {{category_id}},\r\n    \"name\": \"{{$randomCatchPhrase}}\"\r\n  },\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"photoUrls\": [\r\n    \"{{$randomAnimalsImage}}\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": {{tag_id}},\r\n      \"name\": \"{{$randomAdjective}}\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/pet",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve_Pet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Server Response\r",
+							"var jsonResponse = pm.response.json();\r",
+							"\r",
+							"//Json Schema\r",
+							"const schema = {\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"id\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"category\": {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"id\": {\r",
+							"          \"type\": \"integer\"\r",
+							"        },\r",
+							"        \"name\": {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"id\",\r",
+							"        \"name\"\r",
+							"      ]\r",
+							"    },\r",
+							"    \"name\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"photoUrls\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      ]\r",
+							"    },\r",
+							"    \"tags\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"object\",\r",
+							"          \"properties\": {\r",
+							"            \"id\": {\r",
+							"              \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"name\": {\r",
+							"              \"type\": \"string\"\r",
+							"            }\r",
+							"          },\r",
+							"          \"required\": [\r",
+							"            \"id\",\r",
+							"            \"name\"\r",
+							"          ]\r",
+							"        }\r",
+							"      ]\r",
+							"    },\r",
+							"    \"status\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"id\",\r",
+							"    \"category\",\r",
+							"    \"name\",\r",
+							"    \"photoUrls\",\r",
+							"    \"tags\",\r",
+							"    \"status\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"//Tests \r",
+							"pm.test(\"Validating Status Code equals 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validating Response Time is under 800 ms\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validating Header Response\", () => {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validating Json Schema\", () =>{\r",
+							"        pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"\r",
+							" pm.test(\"Comparing Values between previous sent pet and this get response\", () =>{\r",
+							"        pm.expect(jsonResponse.id).to.eql(parseInt(pm.collectionVariables.get(\"c_post_id\"), 10));\r",
+							"        pm.expect(jsonResponse.category.id).to.eql(parseInt(pm.collectionVariables.get(\"c_category_id\"),10));\r",
+							"        pm.expect(jsonResponse.category.name).to.eql(pm.collectionVariables.get(\"category_name\"));\r",
+							"        pm.expect(jsonResponse.name).to.eql(pm.collectionVariables.get(\"pet_name\"));\r",
+							"        pm.expect(jsonResponse.tags[0].id).to.eql(parseInt(pm.collectionVariables.get(\"c_tag_id\"),10));\r",
+							"        pm.expect(jsonResponse.tags[0].name).to.eql(pm.collectionVariables.get(\"tag_name\"));\r",
+							"        pm.expect(jsonResponse.status).to.eql(pm.collectionVariables.get(\"status\"));\r",
+							"    })\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/pet/{{post_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"pet",
+						"{{post_id}}"
+					],
+					"query": [
+						{
+							"key": "petId",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Place_New_Order",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Generating random numbers\r",
+							"let min = 0;\r",
+							"let max = 10;\r",
+							"\r",
+							"function randomNumber() { \r",
+							"    return Math.round(Math.random() * (max - min) + min);\r",
+							"} \r",
+							"\r",
+							"//Setting up environmnet variables\r",
+							"pm.environment.set(\"order_id\", randomNumber());\r",
+							"console.log(\"order id = \" + pm.environment.get(\"order_id\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Server Response\r",
+							"var jsonResponse = pm.response.json();\r",
+							"\r",
+							"//Setting collection variables\r",
+							"pm.collectionVariables.set(\"c_order_id\", jsonResponse.id);\r",
+							"pm.collectionVariables.set(\"order_quantity\", jsonResponse.quantity);\r",
+							"pm.collectionVariables.set(\"order_date\", jsonResponse.shipDate);\r",
+							"pm.collectionVariables.set(\"order_complete\", jsonResponse.complete);\r",
+							"\r",
+							"//Json Schema\r",
+							"const schema = {\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"id\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"petId\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"quantity\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"shipDate\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"status\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"complete\": {\r",
+							"      \"type\": \"boolean\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"id\",\r",
+							"    \"petId\",\r",
+							"    \"quantity\",\r",
+							"    \"shipDate\",\r",
+							"    \"status\",\r",
+							"    \"complete\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"//Tests \r",
+							"pm.test(\"Validating Status Code equals 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validating Response Time is under 800 ms\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validating Header Response\", () => {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validating Json Schema\", () =>{\r",
+							"        pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"\r",
+							" pm.test(\"Validating Json Keys\", () =>{\r",
+							"        pm.expect(jsonResponse).have.property(\"id\");\r",
+							"        pm.expect(jsonResponse).have.property(\"petId\");\r",
+							"        pm.expect(jsonResponse).have.property(\"quantity\");\r",
+							"        pm.expect(jsonResponse).have.property(\"shipDate\");\r",
+							"        pm.expect(jsonResponse).have.property(\"complete\");\r",
+							"    })"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{order_id}},\r\n  \"petId\": {{post_id}},\r\n  \"quantity\": 1,\r\n  \"shipDate\": \"{{$isoTimestamp}}\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/store/order",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Server Response\r",
+							"var jsonResponse = pm.response.json();\r",
+							"\r",
+							"//Json Schema\r",
+							"const schema = {\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"id\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"petId\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"quantity\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"shipDate\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"status\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"complete\": {\r",
+							"      \"type\": \"boolean\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"id\",\r",
+							"    \"petId\",\r",
+							"    \"quantity\",\r",
+							"    \"shipDate\",\r",
+							"    \"status\",\r",
+							"    \"complete\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"//Tests \r",
+							"pm.test(\"Validating Status Code equals 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validating Response Time is under 800 ms\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validating Header Response\", () => {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validating Json Schema\", () =>{\r",
+							"        pm.response.to.have.jsonSchema(schema);\r",
+							"})\r",
+							"\r",
+							" pm.test(\"Comparing Values between previous sent pet and this get response\", () =>{\r",
+							"        pm.expect(jsonResponse.id).to.eql(parseInt(pm.collectionVariables.get(\"c_order_id\"),10));\r",
+							"        pm.expect(jsonResponse.petId).to.eql(parseInt(pm.environment.get(\"post_id\"),10));\r",
+							"        pm.expect(jsonResponse.shipDate).to.eql(pm.collectionVariables.get(\"order_date\"));\r",
+							"        pm.expect(String(jsonResponse.complete)).to.eql(pm.collectionVariables.get(\"order_complete\"));\r",
+							"    })\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/store/order/{{c_order_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"store",
+						"order",
+						"{{c_order_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "c_post_id",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "c_category_id",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "category_name",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "pet_name",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "c_tag_id",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "tag_name",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "status",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "c_order_id",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "order_quantity",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "order_date",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "order_complete",
+			"value": "0",
+			"type": "string"
+		}
+	]
+}
