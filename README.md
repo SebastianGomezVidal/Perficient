@@ -23,7 +23,7 @@ Upload the solution to a repo, put in the README instructions about how to execu
 ## HOW TO RUN THIS POGRAM
 1. Download The Challenge Folder into a location inside your computer.
 2. Open Jenkins and Configure a new Job.
-![Alt text](pictures//new_job.jpg?raw=true "New Job")
+![Alt text](pictures//new_job.png?raw=true "New Job")
 3. Go into your newly created job and add the follwoing lines under build:
 
     ```python
@@ -31,10 +31,10 @@ Upload the solution to a repo, put in the README instructions about how to execu
         "C:\Users\youruser\AppData\Roaming\npm\newman" run Swagger_Petstore.postman_collection.json -e QA_Testing  postman_environment.json -g workspace.postman_globals.json
         "C:\Users\youruser\AppData\Roaming\npm\newman" run Swagger_Petstore.postman_collection.json -e QA_Testing.postman_environment.json -g workspace.postman_globals.json -r htmlextra
     ```
-![Alt text](pictures//job_confing.jpg?raw=true "Job Config")
+![Alt text](pictures//job_confing.png?raw=true "Job Config")
 4. In order to see a proper rendering of postman report lines go to you jenkins folder and open with a text editor the jenkins.xml file, at line 39 before the word -jar add D.encoding=UTF8.
-![Alt text](pictures//job_utf-8.jpg?raw=true "UTF-8")
+![Alt text](pictures//job_utf-8.png?raw=true "UTF-8")
 5. Finally run your build.
-![Alt text](pictures//built.jpg?raw=true "Built")
+![Alt text](pictures//built.png?raw=true "Built")
 6. Go to the path of your local folder and inside the newman sub-folder with the help of a browser open the respective report.
-![Alt text](pictures//report.jpg?raw=true "Report")
+![Alt text](pictures//report.png?raw=true "Report")
