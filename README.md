@@ -16,13 +16,7 @@ Upload the solution to a repo, put in the README instructions about how to execu
 
 ## THINGS YOU MIGHT NEED BEFORE STARTING
 - node js
-    <object width="425" height="350">
-    <param name="movie" value="https://www.youtube.com/watch?v=AuCuHvgOeBY" />
-    <param name="wmode" value="transparent" />
-    <embed src="http://www.youtube.com/user/wwwLoveWatercom?v=BTRN1YETpyg"
-         type="application/x-shockwave-flash"
-         wmode="transparent" width="425" height="350" />
-    </object>
+    (https://www.youtube.com/watch?v=AuCuHvgOeBY)
 - postman
 
 - newman
