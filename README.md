@@ -34,7 +34,7 @@ Upload the solution to a repo, put in the README instructions about how to execu
     ```
 ![Alt text](pictures//job_config.png?raw=true "Job Config")
 
-4. In order to see a proper rendering of postman report lines go to you jenkins folder and open with a text editor the jenkins.xml file, at line 39 before the word -jar add D.encoding=UTF8.
+4. In order to see a proper rendering of postman report lines go to you jenkins folder and open with a text editor the jenkins.xml file, at line 39 before the word -jar add -Dfile.encoding=UTF8.
 
 ![Alt text](pictures//utf-8.png?raw=true "UTF-8")
 
