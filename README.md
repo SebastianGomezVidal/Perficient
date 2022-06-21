@@ -31,10 +31,14 @@ Upload the solution to a repo, put in the README instructions about how to execu
         "C:\Users\youruser\AppData\Roaming\npm\newman" run Swagger_Petstore.postman_collection.json -e QA_Testing  postman_environment.json -g workspace.postman_globals.json
         "C:\Users\youruser\AppData\Roaming\npm\newman" run Swagger_Petstore.postman_collection.json -e QA_Testing.postman_environment.json -g workspace.postman_globals.json -r htmlextra
     ```
-![Alt text](pictures//job_confing.png?raw=true "Job Config")
+![Alt text](pictures//job_config.png?raw=true "Job Config")
 4. In order to see a proper rendering of postman report lines go to you jenkins folder and open with a text editor the jenkins.xml file, at line 39 before the word -jar add D.encoding=UTF8.
 ![Alt text](pictures//job_utf-8.png?raw=true "UTF-8")
 5. Finally run your build.
 ![Alt text](pictures//built.png?raw=true "Built")
 6. Go to the path of your local folder and inside the newman sub-folder with the help of a browser open the respective report.
+<<<<<<< HEAD
 ![Alt text](pictures//report.png?raw=true "Report")
+=======
+![Alt text](pictures//report.jpg?raw=true "Report")
+>>>>>>> 5a44719018fdd2cf287a7b528908abe94bec3cad
