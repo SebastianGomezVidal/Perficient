@@ -23,7 +23,7 @@ Upload the solution to a repo, put in the README instructions about how to execu
 ## HOW TO RUN THIS POGRAM
 1. Download The Challenge Folder into a location inside your computer.
 2. Open Jenkins and Configure a new Job.
-![Alt text](pictures//new_job.jpg?raw=true "New Job")
+![Alt text](pictures//new_job.png?raw=true "New Job")
 3. Go into your newly created job and add the follwoing lines under build:
 
     ```python
